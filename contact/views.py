@@ -34,7 +34,7 @@ def contact(request):
         message = request.POST['message']
         new_message =Message(first=first, last=last, email=email , message=message)
         new_message.save()
-        messages.success(request, 'لقد تم إرسال رسالتكم بنجاح')
+        messages.success(request, 'لقد تم إستقبال رسالتكم بنجاح')
         
         return redirect('contact:contacto')
     
