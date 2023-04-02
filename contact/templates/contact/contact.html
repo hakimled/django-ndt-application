@@ -1,0 +1,181 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>eas-ndt – SERVICES D’ASSISTANCE TECHNIQUE</title><link rel="icon" type="image/x-icon" href="{% static 'images/eas.png' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    
+    <style>
+        body{
+            background-color: crimson;
+            font-size: 25px;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+          
+        }
+        .navbar{
+            background-color: #2d2722;
+            width: 100%;
+            top: 0;
+            margin-top: 1px;
+            position: sticky;
+            height: 60px;
+            display: flex;
+        }
+        .navbar ul{
+            display: flex;
+            align-items: center;
+            
+        }
+        .navbar li{
+            list-style-type: none;
+            color: white;
+            text-transform: uppercase;
+            margin-left: 20px;
+            font-size: 20px;
+            
+        }
+        li a{
+            font-size: 18px;
+            text-decoration: none;
+        }
+        li a:hover{
+            color: crimson;
+            transition: color .2s ease-in;
+        }
+        nav{
+            background-color: #fff;
+            height: 150px;
+        }
+        main h2{
+            color: #fff;
+            text-align: center;
+            text-transform: capitalize;
+        }
+        a{
+            color: white;    
+            font-size: 23px;
+            text-align: center;
+        }
+        input{
+            display: block;
+            margin-bottom: 10px;
+        }
+        .message{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: crimson;
+        }
+        .message form input[type=text]{
+            height: 30px;
+            width: 300px;
+            border: 1px solid rgba(144, 144, 144, .5);
+            border-radius: 5px;
+        }
+        .message form input[type=submit]{
+            color: white;
+            font-size: 24px;
+            width: 300px;
+            background-color: green;
+            border-radius: 5px;
+            border: 1px solid green;
+            cursor: pointer;
+        }
+        img{
+            margin-left: 100px;
+        }
+        i{
+            color: blue;
+        }
+        header{
+            font-size: 18px;
+            color: #727272;
+            background-color: #ededed;
+            display: flex;
+            justify-content: space-around;
+            height: 40px;
+            align-items: center;
+        }
+        header a{
+            color: #727272;
+            text-decoration: none;
+            font-size: 18px;
+    
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div><a href="tel: +213000000000">(+213) 000000000</a></div>
+        <div>contact@example.com</div>
+        <div>Your business address goes here</div>
+    </header>
+    <nav>
+        <img src="{% static 'images/eas.png' %}" alt="" width="200" height="200">  
+    </nav>
+    <div class="navbar">
+        <ul>
+            <li><a href="">accueil</a></li>
+            <li><a href="">qui sommes nous</a></li>
+            <li><a href="">nos service</a></li>
+            <li><a href="">nos formations</a></li>
+            <li><a href="">contactez nous</a></li>
+            <li><a href="">galerie</a></li>
+            <li><a href="">certificats</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <h2>this is the navbar</h2> 
+        <h2>Hello {{request.user.username}}</h2>
+        {% if messages %} 
+        {% for mess in messages %}
+        <h2>{{mess}}</h2>
+        {% endfor %}
+        {% endif %} 
+    </main>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'contact:logout' %}">logout</a>
+    {% endif %}
+
+    {% for message in mymessages %}
+    <p>{{message.message}}  written by {{message.first}} </p>
+    {% endfor %} 
+    <div>
+        {% for user in users %} 
+        <h3>{{user.username}}</h3>
+        <h4>{{ user.last_login }}  </h4>
+        {% endfor %} 
+
+    </div>
+    <div class="message">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="first">
+            <input type="text" name="last">
+            <input type="text" name="email">
+            <textarea name="message"  cols="30" rows="10"></textarea>
+
+
+            <input type="submit" value="Envoyer">
+        </form>
+    </div>
+
+
+
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+   
+    
+</body>
+</html>
