@@ -1,6 +1,10 @@
-body{
-    background-color: crimson;
+
+section{
+    height: 400px;
+    background-image: url(' /static/images/background.jpg');
+    background-repeat:no-repeat;
+    background-size: auto;
+    background-position-x: center;
+    background-position-y: center;
 }
-.message{
-    background-color:crimson;
-}
+

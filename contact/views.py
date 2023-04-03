@@ -4,9 +4,13 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import Message
 from django.contrib import messages
-
 from django.contrib.auth import authenticate , login , logout
 
+
+
+def about(request):
+    
+    return render(request, 'contact/about.html')
 
 def logout_view(request):
     if request.user.is_authenticated:

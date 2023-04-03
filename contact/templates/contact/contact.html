@@ -17,6 +17,7 @@
             font-size: 25px;
             color: white;
             font-family: Arial, Helvetica, sans-serif;
+            position: relative;
           
         }
         .navbar{
@@ -51,7 +52,7 @@
         }
         nav{
             background-color: #fff;
-            height: 150px;
+            height: 120px;
         }
         main h2{
             color: #fff;
@@ -90,6 +91,7 @@
         }
         img{
             margin-left: 100px;
+            width: 150px;
         }
         i{
             color: blue;
@@ -107,8 +109,46 @@
             color: #727272;
             text-decoration: none;
             font-size: 18px;
-    
         }
+         @media (max-width:600px){
+            header{
+                background-color: yellow;
+        }
+        .navbar{
+            background-color: lightblue;
+            padding-top: 1px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100%;
+            
+        }
+        .navbar ul {
+            display: block;
+        }
+        .navbar ul li {
+            display: block;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+        }
+        .navbar ul li a{
+            color: black;
+            display: block;
+        }
+        .navbar ul li a:visited{
+            color: yellow;
+        }
+        header{
+            display: block;
+            height: 70px;
+            font-size: 15px;
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -116,14 +156,32 @@
         <div><a href="tel: +213000000000">(+213) 000000000</a></div>
         <div>contact@example.com</div>
         <div>Your business address goes here</div>
+        <div class="user">
+            {% if request.user.is_authenticated %} 
+            <div>{{request.user|title }}</div>
+            {% endif %} 
+
+
+        </div>
+        <div class="account">
+            {% if request.user.is_authenticated %}
+            <div class="logged__in">
+                <a href="{% url 'contact:logout' %}">logout</a>
+            </div>
+            {% else %} 
+            <div class="logged__in">
+                <a href="{% url 'contact:login' %}">login</a>
+            </div>
+            {% endif %}
+        </div>
     </header>
     <nav>
-        <img src="{% static 'images/eas.png' %}" alt="" width="200" height="200">  
+        <img src="{% static 'images/eas.png' %}" alt="">  
     </nav>
     <div class="navbar">
         <ul>
             <li><a href="">accueil</a></li>
-            <li><a href="">qui sommes nous</a></li>
+            <li><a href="{% url 'contact:about' %}">qui sommes nous</a></li>
             <li><a href="">nos service</a></li>
             <li><a href="">nos formations</a></li>
             <li><a href="">contactez nous</a></li>
@@ -131,30 +189,28 @@
             <li><a href="">certificats</a></li>
         </ul>
     </div>
-
+    <section>
     <main>
-        <h2>this is the navbar</h2> 
-        <h2>Hello {{request.user.username}}</h2>
         {% if messages %} 
         {% for mess in messages %}
         <h2>{{mess}}</h2>
         {% endfor %}
         {% endif %} 
     </main>
-    {% if request.user.is_authenticated %}
-    <a href="{% url 'contact:logout' %}">logout</a>
-    {% endif %}
+   
+    
 
     {% for message in mymessages %}
     <p>{{message.message}}  written by {{message.first}} </p>
     {% endfor %} 
-    <div>
+    <div class="back">
         {% for user in users %} 
         <h3>{{user.username}}</h3>
         <h4>{{ user.last_login }}  </h4>
         {% endfor %} 
 
     </div>
+   </section>
     <div class="message">
         <form action="" method="post">
             {% csrf_token %}
