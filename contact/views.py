@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate , login , logout
 
 
+def error_404(request , exception):
+    return render(request , 'contact/404.html')
 
 def about(request):
     

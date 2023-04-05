@@ -24,3 +24,5 @@ urlpatterns = [
     path('', include('contact.urls')),
     # path('user/' , include('user.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler404 = 'contact.views.error_404'
